@@ -9,6 +9,10 @@ output_file="src/html/indexHTML.hpp" # Replace with the desired header file name
 CURRENT_DIR := $(shell pwd)
 ARCH := $(shell uname -m)
 
+VERSION=$(shell git rev-parse --short HEAD)
+APP_NAME=devops-cli
+DOCKER_REPO=maissacrement
+
 # Définissez votre variable en fonction de l'architecture
 ifeq ($(ARCH), aarch64)
     LIBRARY := -lboost_program_options -lpcap -g -I ~/boost-build/boost_1_81_0 -Wall
@@ -42,3 +46,21 @@ run:
 	@${CURRENT_DIR}/bin/${OUTPUT}
 
 ${OUTPUT}: build install
+
+build:
+	@docker build -t $(DOCKER_REPO)/$(APP_NAME):$(VERSION) .
+
+dev: build
+	@docker run -p ${PORT}:${PORT} --net=host \
+		-it --rm -v /var/run/docker.sock:/var/run/docker.sock \
+		--name $(APP_NAME) --env-file=.env \
+	$(DOCKER_REPO)/$(APP_NAME):$(VERSION)
+
+tag:
+	@echo 'create tag latest'
+	@docker tag $(DOCKER_REPO)/$(APP_NAME):$(VERSION) $(DOCKER_REPO)/$(APP_NAME):latest
+
+push: version build tag
+	@echo 'publish $(VERSION) to $(DOCKER_REPO)'
+	@docker push $(DOCKER_REPO)/$(APP_NAME):$(VERSION)
+	@docker push $(DOCKER_REPO)/$(APP_NAME):latest
