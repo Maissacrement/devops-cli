@@ -19,4 +19,4 @@ jobs:
     - name: Build the package
       run: docker build -t maissacrement/devops-cli:latest .
     - name: Push to DockerHub
-      run: docker push maissacrement/devops-cli:latest
+      run: docker push index.docker.io/v2/maissacrement/devops-cli:latest
