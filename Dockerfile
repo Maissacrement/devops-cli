@@ -4,7 +4,7 @@ WORKDIR /app
 COPY . /app
 
 RUN apk add make g++ boost1.76-dev nlohmann-json libpcap-dev
-RUN ls && make devops
+RUN make devops
 RUN make clean
 
 WORKDIR /root

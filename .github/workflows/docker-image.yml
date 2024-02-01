@@ -21,4 +21,4 @@ jobs:
     - name: Docker tag
       run: make tag
     - name: Push to DockerHub
-      run: make push
+      run: docker push maissacrement/devops-cli:latest
