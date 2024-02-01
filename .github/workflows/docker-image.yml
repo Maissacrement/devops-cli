@@ -20,5 +20,5 @@ jobs:
       run: make docker_build
     - name: Docker tag
       run: make tag
-    - name: Paush to DockerHub
+    - name: Push to DockerHub
       run: make push

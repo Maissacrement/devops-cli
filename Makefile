@@ -60,7 +60,7 @@ tag:
 	@echo 'create tag latest'
 	@docker tag $(DOCKER_REPO)/$(APP_NAME):$(VERSION) $(DOCKER_REPO)/$(APP_NAME):latest
 
-push: version docker_build tag
+push: docker_build tag
 	@echo 'publish $(VERSION) to $(DOCKER_REPO)'
 	@docker push $(DOCKER_REPO)/$(APP_NAME):$(VERSION)
 	@docker push $(DOCKER_REPO)/$(APP_NAME):latest
