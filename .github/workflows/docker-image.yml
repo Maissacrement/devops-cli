@@ -15,8 +15,8 @@ jobs:
     steps:
     - uses: actions/checkout@v3
     - name: Login to Dockerhub
-      run: echo ${{ secrets.DOCKER_PASSWORD }} | docker login -u ${{ secrets.DOCKER_USERNAME }} --password-stdin index.docker.io/v2/
+      run: echo ${{ secrets.DOCKER_PASSWORD }} | docker login -u ${{ secrets.DOCKER_USERNAME }} --password-stdin registry.hub.docker.com
     - name: Build the package
       run: docker build -t maissacrement/devops-cli:latest .
     - name: Push to DockerHub
-      run: docker push index.docker.io/v2/maissacrement/devops-cli:latest
+      run: docker push registry.hub.docker.com/maissacrement/devops-cli:latest
