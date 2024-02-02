@@ -1,9 +1,20 @@
 # Devops cli
 
+## How to build
+```bash
+make build
+```
+
+## How to install
+
+```bash
+sudo make devops
+```
+
 ## How to run
 
 get help:
-```
+```bash
 devops --help
 ```
 
