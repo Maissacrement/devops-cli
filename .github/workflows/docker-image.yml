@@ -21,7 +21,7 @@ jobs:
     - name: Run
       run: docker run --name devops-cli -d maissacrement/devops-cli:latest
     - name: Exec cppcheck
-      run: docker exec -i devops-cli /bin/sh -c "cd src;cppcheck --enable=all --std=c++11 src --force"
+      run: docker exec -i devops-cli /bin/sh -c "cd /app/src;cppcheck --enable=all --std=c++11 src --force"
     - name: Push to DockerHub
       run: docker push docker.io/maissacrement/devops-cli:latest
     - name: Clean
