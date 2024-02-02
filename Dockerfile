@@ -3,7 +3,7 @@ FROM alpine:3.14
 WORKDIR /app
 COPY . /app
 
-RUN apk add make g++ boost1.76-dev nlohmann-json libpcap-dev
+RUN apk add make g++ boost1.76-dev nlohmann-json libpcap-dev cppcheck
 RUN make devops
 RUN make clean
 
