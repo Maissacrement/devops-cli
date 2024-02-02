@@ -18,5 +18,13 @@ jobs:
       run: echo ${{ secrets.DOCKER_PASSWORD }} | docker login -u ${{ secrets.DOCKER_USERNAME }} --password-stdin docker.io
     - name: Build the package
       run: docker build -t maissacrement/devops-cli:latest .
+    - name: Run
+      run: docker run --name devops-cli -d maissacrement/devops-cli:latest
+    - name: Exec cppcheck
+      run: docker exec -i devops-cli /bin/bash -c "cppcheck --enable=all --std=c++11 src --force"
     - name: Push to DockerHub
       run: docker push docker.io/maissacrement/devops-cli:latest
+    - name: Clean
+      run: |
+        docker stop devops-cli
+        docker rm -f devops-cli
